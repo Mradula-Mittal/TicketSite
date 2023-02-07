@@ -12,8 +12,17 @@ def home(request):
 
 #register view initiates a user creation form for registration (sign up)
 def register(request):
+    form = UserCreationForm()
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username = username, password = password)
+            login(request, user)
+            return redirect('home')
+    context = {
+        'form': form
+    }
+    return render(request, 'registration/register.html', context)
