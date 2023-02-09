@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from . import models
+from django.shortcuts import render, redirect
+from .models import Ticket, Site
+from django.http import HttpResponse
+from django.template import loader
 # Create your views here.
 
 def Landing(request):
